@@ -37,6 +37,12 @@ class Game:
          sentence = random.choice(sentences)
          return sentence
 
+      def show_results(self, screen):
+         #Calculate Time
+         #Calculate Accuracy
+         #Calculate WPM
+
+
       def run(self):
          self.reset_game()
 
@@ -54,6 +60,6 @@ class Game:
                   sys.exit()
                elif event.type == pygame.MOUSEBUTTONUP:
                   x,y = pygame.mouse.get_pos()
-
-                  
-Game()
+        
+      def reset_game():
+         
