@@ -21,24 +21,24 @@ class Game:
       self.RESULT_C = (255,70,70)
 
       pygame.init()
+      self.menu_img = pygame.image.load('menutyperacer.png')
+      self.menu_img = pygame.transform.scale(self.menu_img,(self.w,self.h))
 
-
-      self.bg = pygame.image.load('bakgrund.jpg')
+      self.bg = pygame.image.load('backdrop.jpg')
       self.bg = pygame.transform.scale(self.bg,(500,750))
-
 
       self.screen = pygame.display.set_mode((self.w,self.h))
       pygame.display.set_caption('typefast')
 
    def draw_text(self,screen,msg,y,fsize,color):
       font = pygame.font.Font(None, fsize)
-      text = font.render(msg,i,color)
+      text = font.render(msg, 1,color)
       text_rect = text.get_rect(center=(self.w/2,y))
       screen.blit(text, text_rect)
       pygame.display.update()
 
    def get_sentence(self):
-      f = open('meningar.txt').read()
+      f = open('sentences.txt').read()
       sentences = f.split('\n')
       sentence = random.choice(sentences)
       return sentence
@@ -114,8 +114,8 @@ class Game:
       
       clock.tick(60)
         
-   def reset_game():
-      self.screen.blit(self.open_img, (0,0))
+   def reset_game(self):
+      self.screen.blit(self.menu_img, (0,0))
 
       pygame.display.update()
       time.sleep(1)
@@ -129,12 +129,14 @@ class Game:
       self.total_time = 0
       self.wpm = 0
 
+      #Generate random sentence
       self.word = self.get_sentence()
-      if (not self.word) : self.reset_game()
+      if (not self.word): self.reset_game()
+
 
       self.screen.fill((0,0,0))
-      self.screen.blit(self.background,(0,0))
-      msg = ""
+      self.screen.blit(self.bg,(0,0))
+      msg = "Typefast"
       self.draw_text(self.screen, msg, 80, 80, self.HEAD_C)
 
       pygame.draw.rect(self.screen,(255,192,25),(50,250,650,50),2)
@@ -142,7 +144,6 @@ class Game:
       self.draw_text(self.screen, self.word, 200, 28, self.TEXT_C)
 
       pygame.display.update()
-
 
 
 
