@@ -16,16 +16,16 @@ class Game:
       self.results = 'Time:0 Accuracy:0 % Wpm:0 '
       self.wpm = 0
       self.end = False
-      self.HEAD_C = (255,213,102)
-      self.TEXT_C = (240,240,240)
-      self.RESULT_C = (255,70,70)
+      self.HEAD_C = (255, 40,40)
+      self.TEXT_C = (250,250,250)
+      self.RESULT_C = (255,50,50)
 
       pygame.init()
-      self.menu_img = pygame.image.load('menutyperacer.png')
+      self.menu_img = pygame.image.load('images/menutyperacer.jpg')
       self.menu_img = pygame.transform.scale(self.menu_img,(self.w,self.h))
 
-      self.bg = pygame.image.load('backdrop.jpg')
-      self.bg = pygame.transform.scale(self.bg,(500,750))
+      self.bg = pygame.image.load('images/backdrop.jpg')
+      self.bg = pygame.transform.scale(self.bg,(self.w,self.h))
 
       self.screen = pygame.display.set_mode((self.w,self.h))
       pygame.display.set_caption('typefast')
@@ -63,8 +63,18 @@ class Game:
          self.end = True
          print(self.total_time)
 
-         self.results = 'Time:'+str(round(self.total_time)) +" secs Accuracy:"+ str(round(self.accuracy)) + "%" + ' Wpm: ' + str(round(self.wpm))
+         self.results = 'Time:'+str(round(self.total_time)) +" secs Accuracy:"+ str(round(self.accuracy)) + "%" + ' Wpm: ' + str(round(self.WPM))
             
+         
+         self.time_img = pygame.image.load('images/icon.png')
+         self.time_img = pygame.transform.scale(self.time_img, (150,150))
+
+         screen.blit(self.time_img, (self.w/2-75,self.h-140))
+         self.draw_text(screen,"Reset", self.h - 70, 26, (100,100,100))
+
+         print(self.results)
+         pygame.display.update()
+
    def run(self):
       self.reset_game()
 
