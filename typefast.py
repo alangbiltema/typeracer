@@ -16,11 +16,13 @@ class Game:
       self.results = 'Time:0 Accuracy:0 % Wpm:0 '
       self.wpm = 0
       self.end = False
-      self.HEAD_C = (255, 40,40)
+      self.HEAD_C = (255,140,0)
       self.TEXT_C = (250,250,250)
-      self.RESULT_C = (255,50,50)
+      self.RESULT_C = (255,140,0)
 
       pygame.init()
+
+      #BILDER
       self.menu_img = pygame.image.load('images/menutyperacer.jpg')
       self.menu_img = pygame.transform.scale(self.menu_img,(self.w,self.h))
 
@@ -29,20 +31,26 @@ class Game:
 
       self.screen = pygame.display.set_mode((self.w,self.h))
       pygame.display.set_caption('typefast')
+      pygame.display.set_icon(self.bg)
 
+   #SKRIV UT TEXT
    def draw_text(self,screen,msg,y,fsize,color):
       font = pygame.font.Font(None, fsize)
       text = font.render(msg, 1,color)
       text_rect = text.get_rect(center=(self.w/2,y))
       screen.blit(text, text_rect)
       pygame.display.update()
+   
 
+   #HÄMTA MENING
    def get_sentence(self):
       f = open('sentences.txt').read()
       sentences = f.split('\n')
       sentence = random.choice(sentences)
       return sentence
 
+
+   #RESULTAT
    def show_results(self, screen):
       if(not self.end):
          #Calculate Time
@@ -65,7 +73,7 @@ class Game:
 
          self.results = 'Time:'+str(round(self.total_time)) +" secs Accuracy:"+ str(round(self.accuracy)) + "%" + ' Wpm: ' + str(round(self.WPM))
             
-         
+          
          self.time_img = pygame.image.load('images/icon.png')
          self.time_img = pygame.transform.scale(self.time_img, (150,150))
 
@@ -75,6 +83,7 @@ class Game:
          print(self.results)
          pygame.display.update()
 
+   #GAME LOOP
    def run(self):
       self.reset_game()
 
@@ -123,7 +132,8 @@ class Game:
          pygame.display.update()
       
       clock.tick(60)
-        
+
+   #ÅTERSTÄLL  
    def reset_game(self):
       self.screen.blit(self.menu_img, (0,0))
 
@@ -139,11 +149,11 @@ class Game:
       self.total_time = 0
       self.wpm = 0
 
-      #Generate random sentence
+      #GENERERA MENING
       self.word = self.get_sentence()
       if (not self.word): self.reset_game()
 
-
+      #TEXTRUTA
       self.screen.fill((0,0,0))
       self.screen.blit(self.bg,(0,0))
       msg = "Typefast"
